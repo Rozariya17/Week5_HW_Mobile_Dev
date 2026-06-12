@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MaterialApp(
-  debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text("Custom buttons"),
-        ),
-        body: Center(
-          child: Column(
-            children: [
-              SelectButton(),
-              SizedBox(height: 20,),
-              SelectButton(),
-            ],
-          ),
+void main() => runApp(
+  MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: Scaffold(
+      appBar: AppBar(title: const Text("Custom buttons")),
+      body: Center(
+        child: Column(
+          children: [SelectButton(), SizedBox(height: 20), SelectButton()],
         ),
       ),
-    ));
+    ),
+  ),
+);
 
 class SelectButton extends StatefulWidget {
   const SelectButton({super.key});
@@ -28,6 +24,12 @@ class SelectButton extends StatefulWidget {
 class _SelectButtonState extends State<SelectButton> {
   bool selected = false;
 
+  String get selectedLabel => selected ? "Selected" : "Not selected";
+
+  Color get textColor => selected ? Colors.white : Colors.black;
+
+  Color get backgroundcolor => selected ? Colors.blue.shade500 : Colors.blue.shade50;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -35,17 +37,14 @@ class _SelectButtonState extends State<SelectButton> {
       height: 100,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: selected ? Colors.blue[500] : Colors.blue[50],
+          backgroundColor: backgroundcolor,
         ),
         onPressed: () {
           setState(() {
             selected = !selected;
           });
         },
-        child: Text(
-          selected ? "Selected" : "Not selected",
-          style: TextStyle(color: selected ? Colors.white : Colors.black),
-        ),
+        child: Text(selectedLabel, style: TextStyle(color: textColor)),
       ),
     );
   }
